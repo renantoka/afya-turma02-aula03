@@ -30,7 +30,7 @@ const FormSignIn: React.FC = () => {
             api.post('login', formDataContent).then(
                 response => {
                     localStorage.setItem('@tokenAfyaApp', response.data.token)
-                    toast.success('Cadastro realizado com sucesso! Você está sendo redirecionado.', {
+                    toast.success('Você está sendo redirecionado para sua página.', {
                         onClose: () => history.push('/dash')
                     })
                 }
