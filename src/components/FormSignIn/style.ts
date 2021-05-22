@@ -11,5 +11,3 @@ export const FormContent = styled.div`
         width: 90%;
     }
 `
-
-export default FormContent;

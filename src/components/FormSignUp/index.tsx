@@ -12,7 +12,6 @@ interface IUserRegister {
     senha: string;
 }
 
-
 const FormSignUp: React.FC = () => {
 
     const history = useHistory()

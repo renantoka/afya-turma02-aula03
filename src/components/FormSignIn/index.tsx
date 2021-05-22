@@ -1,13 +1,16 @@
 import React, { FormEvent, useCallback, useState } from 'react';
 import { useHistory } from 'react-router';
 
+import Lottie from 'react-lottie';
+import animationData from '../../assets/animation/60347-loader.json'
+
 import { toast } from 'react-toastify';
 
 import api from '../../service/api';
 import { FormContent } from './style';
 
 interface IUserLogin {
-    login: string;
+    usuario: string;
     senha: string;
 }
 
@@ -24,10 +27,11 @@ const FormSignIn: React.FC = () => {
             e.preventDefault();
             setIsLoad(true)
 
-            api.post('usuarios', formDataContent).then(
+            api.post('login', formDataContent).then(
                 response => {
-                    toast.success('Cadastro realizado com sucesso!', {
-                        onClose: () => history.push('/login')
+                    localStorage.setItem('@tokenAfyaApp', response.data.token)
+                    toast.success('Cadastro realizado com sucesso! Você está sendo redirecionado.', {
+                        onClose: () => history.push('/dash')
                     })
                 }
             )
@@ -35,17 +39,28 @@ const FormSignIn: React.FC = () => {
                 .finally(() => setIsLoad(false))
         }, [formDataContent, history]
     );
+
+    const animationContent = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData
+    }
     return (
         <FormContent>
+
             { isLoad ? (
-                <p>Carregando</p>
+                <Lottie
+                    options={animationContent}
+                    width={200}
+                    height={300}
+                />
             ) : (
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
-                        name="user"
+                        name="name"
                         placeholder="Insira seu nome de usuário"
-                        onChange={e => setFormDataContent({ ...formDataContent, login: e.target.value })}
+                        onChange={e => setFormDataContent({ ...formDataContent, usuario: e.target.value })}
                     />
                     <input
                         type="password"
@@ -55,7 +70,7 @@ const FormSignIn: React.FC = () => {
                     />
                     <input
                         type="submit"
-                        value="Criar conta"
+                        value="Logar"
                     />
                 </form>
             )}
