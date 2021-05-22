@@ -2,18 +2,20 @@ import React from 'react';
 import Footer from '../../../components/Footer';
 import NavBar from '../../../components/NavBar';
 
-import { Container } from './styles';
+import { SectionComponent } from './styles';
 
 const Home: React.FC = () => {
     return (
         <>
             <NavBar />
-            <Container>
-                <h1>Home</h1>
-            </Container>
+            <div className="container">
+                <SectionComponent>
+                    <h1>Home</h1>
+                </SectionComponent>
+            </div>
             <Footer />
         </>
-    )
+    );
 }
 
 export default Home;
